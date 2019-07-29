@@ -1,0 +1,137 @@
+.panel-default > .panel-heading {
+color: #000;
+font-weight:bold;
+font-size: 16px;
+padding: 15px 15px 15px 0;
+}
+
+.panel-heading {
+  /* padding: 15px 15px 0px; */
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.form-horizontal .control-group .controls input {
+	height: 30px;!important;
+	line-height: 30px;!important;
+}
+
+.text-c input {
+	height: 30px;!important;
+	line-height: 30px;!important;
+}
+
+td.center a:hover{text-decoration:none;}
+
+table tr td {
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    -moz-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+}
+
+.chart {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+/*默认table*/
+table{width:100%;empty-cells:show;background-color:transparent;border-collapse:collapse;border-spacing:0}
+table th{text-align:left; font-weight:400}
+/*带水平线*/
+.table th{font-weight:bold}
+.table th,.table td{padding:8px;line-height:20px;word-break:break-all}
+.table td{text-align:left}
+.table tbody tr.success > td{background-color:#dff0d8}
+.table tbody tr.error > td{background-color:#f2dede}
+.table tbody tr.warning > td{background-color:#fcf8e3}
+.table tbody tr.info > td{background-color:#d9edf7}
+.table tbody + tbody{border-top:2px solid #ddd}
+.table .table{background-color:#fff}
+
+/*带横向分割线*/
+.table-border{border-top:1px solid #ddd}
+.table-border th,.table-border td{border-bottom:1px solid #ddd}
+
+/*th带背景*/
+.table-bg thead th{background-color:#F5FAFE}
+/*带外边框*/
+.table-bordered{border:1px solid #ddd;border-collapse:separate;*border-collapse:collapse;border-left:0}
+.table-bordered th,.table-bordered td{border-left:1px solid #ddd}
+.table-border.table-bordered{border-bottom:0}
+
+/*奇数行背景设为浅灰色*/
+.table-striped tbody > tr:nth-child(odd) > td,
+.table-striped tbody > tr:nth-child(odd) > th{background-color:#f9f9f9}
+/*竖直方向padding缩减一半*/
+.table-condensed th,
+.table-condensed td{padding:4px 5px}
+/*鼠标悬停样式*/
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th{background-color: #f5f5f5}
+/*鼠标选择整行样式*/
+.table tbody tr.selected td{background-color:#F3F3F3}
+/*定义颜色*/
+/*悬停在行*/
+.table tbody tr.active,
+.table tbody tr.active > td,
+.table tbody tr.active > th,
+.table tbody tr .active{ background-color:#F5F5F5!important}
+/*成功或积极*/
+.table tbody tr.success,
+.table tbody tr.success > td,
+.table tbody tr.success > th,
+.table tbody tr .success{background-color:#DFF0D8!important}
+
+/*警告或出错*/
+.table tbody tr.warning,
+.table tbody tr.warning > td,
+.table tbody tr.warning > th,
+.table tbody tr .warning{background-color:#FCF8E3!important}
+/*危险*/
+.table tbody tr.danger,
+.table tbody tr.danger > td,
+.table tbody tr.danger > th,
+.table tbody tr .danger{background-color:#F2DEDE!important}
+
+/*表格文字对齐方式，默认是居左对齐*/
+.table .text-c th,.table .text-c td{text-align:center}/*整行居中*/
+.table .text-r th,.table .text-r td{text-align:right}/*整行居右*/
+.table th.text-l,.table td.text-l{text-align:left!important}/*单独列居左*/
+.table th.text-c,.table td.text-c{text-align:center!important}/*单独列居中*/
+.table th.text-r,.table td.text-r{text-align:right!important}/*单独列居右*/
+
+/*datatable*/
+table.dataTable {border-collapse: separate;border-spacing: 0;clear: both}
+table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting {cursor: pointer; background-repeat:no-repeat;background-position:right}
+table.dataTable thead .sorting{background-image:url(../images/dataTable/sort_both.png)}
+table.dataTable thead .sorting_asc {background-image:url(../images/dataTable/sort_asc.png)}
+table.dataTable thead .sorting_desc {background-image:url(../images/dataTable/sort_desc.png)}
+.dataTable td.sorting_1 {background-color: #f5fafe}
+.dataTables_wrapper .dataTables_length {float: left;padding-bottom:20px}
+.dataTables_wrapper .dataTables_length .select{ width:50px}
+.dataTables_wrapper .dataTables_filter {float: right;text-align: right}
+.dataTables_wrapper .dataTables_filter .input-text { width:auto}
+.dataTables_wrapper .dataTables_info {clear: both;float: left;padding-top:10px;font-size:14px; color:#666}
+.dataTables_wrapper .dataTables_paginate {float: right;padding-top:10px;text-align: right}
+.dataTables_wrapper .dataTables_paginate .paginate_button {border: 1px solid #ccc;cursor: pointer;display: inline-block;margin-left: 2px;text-align: center;text-decoration: none;color: #666;height: 26px;line-height: 26px;text-decoration: none;margin: 0 0px 6px 6px;padding: 0 10px;font-size:14px}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {background:#5a98de;color:#fff}
+
+td.center {border-top: 0px;}
+.table-border td{border-top: 0px;}
+
+th, td{ font-size:14px;}
+
+.breadcrumb{border-bottom: 1px solid #E5E5E5;line-height: 39px; height:39px;overflow:hidden}
+.breadcrumb span{padding:0 5px}
+
+.mt-20{margin-top:20px}
+.mt-20 span.r{font-size:14px;padding-top:5px;}

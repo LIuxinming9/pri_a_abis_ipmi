@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gydz.user.mapper.chassiswarnsetMapper">
+
+	<select id="getIPname" parameterType="Map" resultType="sensorrecord">
+		select IP,name,IPname from
+		chassis_warn_set
+		where 1=1
+		<if test="queryType != '全部' and queryType != null and queryType != ''">
+		and sensor_type = #{queryType}
+		</if>
+		<if test="IPType != '全部' and IPType != null and IPType != ''">
+		and IP = #{IPType}
+		</if>
+		<if test="nameType != '全部' and nameType != null and nameType != ''">
+		and name = #{nameType}
+		</if>
+	</select>
+	
+	<delete id="del" parameterType="Map">
+        delete from chassis_warn_set 
+        where IP=#{IPType} 
+        and name = #{nameType}
+    </delete>
+    
+    <insert id="add" parameterType="Map">
+        insert into chassis_warn_set(IP,name,IPname)
+        values(#{IPType},#{nameType},#{IPname})
+    </insert>
+    
+    <update id="update" parameterType="Map">
+        update sensor_warn_set 
+        set IPname=#{IPname}
+        where IP=#{IP}
+        and name=#{name}
+    </update>
+    
+</mapper>

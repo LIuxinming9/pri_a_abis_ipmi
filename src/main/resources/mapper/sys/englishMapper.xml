@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gydz.user.mapper.englishMapper">
+    
+    <insert id="add" parameterType="Map">
+        insert into english(english,chinese)
+        values(#{word},#{word})
+    </insert>
+
+   <select id="getmap" resultType="english">
+		select english,chinese from
+		english
+	</select>
+	
+	<insert id="addid" >
+        insert into english(english,chinese)
+        values("","")
+    </insert>
+    
+    <delete id="del" parameterType="Map">
+        delete from english 
+        where english=#{english}
+    </delete>
+    
+    <update id="update" parameterType="Map">
+        update english
+        set chinese=#{chinese}
+        where english=#{english}
+    </update>
+</mapper>

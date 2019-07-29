@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
+
+    <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射,解决@ResponseBody乱码问题, 需要在annotation-driven之前,否则乱码问题同样无法解决 -->  
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"> 
+	    <property name="messageConverters">  
+	         <list>  
+	             <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
+	                 <property name="supportedMediaTypes">  
+	                    <list>  
+	                        <value>text/html;charset=UTF-8</value>  
+	                     </list>  
+	                  </property>  
+	              </bean>  
+	            </list>  
+	    </property>  
+	</bean> 
+    
+    <mvc:annotation-driven /> 
+   
+    <!-- 启动对@AspectJ注解的支持  -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+   
+    <context:component-scan base-package="com.gydz.**.controller"/>  
+   
+	<mvc:resources mapping="/images/**" location="/images/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/fonts/**" location="/fonts/" />
+	<mvc:resources mapping="/template/**" location="/template/" />
+	
+	
+   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
+   		p:prefix="/" 
+   		p:suffix=".jsp"/>
+	
+    <!-- 加载国际化资源文件 -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames" value="messages"/>
+    </bean>
+    <mvc:interceptors>
+       <!-- 国际化操作拦截器如果采用基于(Session/Cookie则必须配置) -->
+       <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+    </mvc:interceptors>
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+   
+</beans>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gydz.user.mapper.resourcewarnsetMapper">
+
+	<select id="getresourcewarnsetbyparam" parameterType="Map" resultType="sensorrecord">
+		select * from
+		resource_warn_set
+		where 1=1
+		<if test="queryType != '全部' and queryType != null and queryType != ''">
+		and sensor_type = #{queryType}
+		</if>
+		<if test="IPType != '全部' and IPType != null and IPType != ''">
+		and IP = #{IPType}
+		</if>
+		<if test="nameType != '全部' and nameType != null and nameType != ''">
+		and name = #{nameType}
+		</if>
+		<if test="entity_id != '全部' and entity_id != null and entity_id != ''">
+		and entity_id = #{entity_id}
+		</if>
+	</select>
+	
+	<select id="getIPname" resultType="sensorrecord">
+		select IPname from
+		sensor_warn_set
+	</select>
+	
+	<delete id="delSysIP" parameterType="Map">
+        delete from resource_warn_set 
+        where IP=#{IPType} 
+        and entity_id = #{entity_id}
+    </delete>
+    
+    <insert id="add" parameterType="sensorrecord">
+        insert into resource_warn_set(IP,IPname,entity_id,emptyresource)
+        values(#{IP},#{IPname},#{entity_id},#{emptyresource})
+    </insert>
+    
+    <update id="update" parameterType="Map">
+        update resource_warn_set 
+        set IPname=#{IPname}
+        where IP=#{IP}
+        and entity_id=#{entity_id}
+    </update>
+    
+    <update id="refresh" parameterType="Map">
+        update resource_warn_set 
+        set emptyresource=#{emptyname}
+        where IPname=#{nameip}
+    </update>
+    
+</mapper>

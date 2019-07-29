@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gydz.user.mapper.UserMapper">
+    
+    <select id="getAllUsers" resultType="user">
+        select * from u_user
+    </select>
+    
+    <select id="getUserByKeyword" resultType="user" parameterType="String">
+        select * from u_user
+        where username =#{keyword} or account =#{keyword}
+    </select>
+    
+    <select id="getroleid" resultType="Integer" parameterType="user">
+        select id from u_role
+        where name =#{account}
+    </select>
+    
+    <insert id="addUser" parameterType="user">
+        insert into u_user(username,account,password)
+        values(#{username},#{account},#{password})
+    </insert>
+    
+    <insert id="addRole" parameterType="Map">
+        insert into u_user_role(uid,rid)
+        values(#{id},#{rid})
+    </insert>
+
+    <update id="updateUserName" parameterType="Map">
+        update u_user 
+        set username=#{username} 
+        where id=#{id}
+    </update>
+
+    <update id="updateUserPwd" parameterType="Map">
+        update u_user 
+        set password=#{password} 
+        where id=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from u_user 
+        where id=#{id}
+    </delete>
+    
+    <delete id="deleteRole" parameterType="int">
+        delete from u_user_role 
+        where uid=#{id}
+    </delete>
+    
+    <select id="getByUsername" parameterType="String" resultType="user">
+        select * from u_user 
+        where username=#{username}
+    </select>
+ 
+    <select id="getRoles" parameterType="String" resultType="String">
+        select r.name  from u_user u,u_role r,u_user_role ur 
+        where ur.rid=r.id and ur.uid=u.id 
+        and u.account=#{account}
+    </select>
+ 
+    <select id="getPermissions" parameterType="String" resultType="String">
+        select p.url from u_user u,u_permission p ,u_role_permission rp, u_user_role ur 
+        where p.id = rp.pid and rp.rid = ur.rid and ur.uid=u.id
+        and u.account=#{account}
+    </select>
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gydz.user.mapper.snmpSetMapper">
+	
+	<select id="get" statementType="STATEMENT" resultType="snmp">
+		select i.hostname,o.oid,o.chinese_des from
+		snmp_oid o,snmp_id_oid io,serversip i
+		where o.id=io.ooid and i.id=io.iid
+	</select>
+	
+	<select id="getByKeyword" resultType="snmp" parameterType="String">
+        select i.hostname,o.oid,o.chinese_des from
+		snmp_oid o,snmp_id_oid io,serversip i
+		where o.id=io.ooid and i.id=io.iid
+        and (i.hostname =#{keyword} or o.oid =#{keyword} or i.name =#{keyword})
+    </select>
+	
+	<select id="getOID" statementType="STATEMENT" resultType="snmp">
+		select id,oid,chinese_des from
+		snmp_oid
+	</select>
+	
+	<select id="getOIDByBrand" parameterType="String" resultType="snmp">
+		select id,oid,chinese_des from
+		snmp_oid
+		where brand = #{brand}
+	</select>
+	
+	<select id="getOIDByIPType" parameterType="Map" resultType="snmp">
+		select o.id,i.hostname from
+		snmp_oid o,snmp_id_oid io,serversip i
+		where o.id=io.ooid and i.id=io.iid
+		and i.hostname=#{iPType}
+	</select>
+	
+	<select id="getIidByIP" parameterType="Map" resultType="snmp">
+		select id from
+		serversip
+		where hostname=#{hostname}
+	</select>
+	
+	<insert id="insert" parameterType="Map">
+        insert into snmp_id_oid(iid,ooid)
+        values(#{iid},#{ooid})
+    </insert>
+    
+    <delete id="delByIp" parameterType="Map">
+        delete from snmp_id_oid 
+        where iid=#{iid} and ooid=#{ooid}
+    </delete>
+	
+    <insert id="saveByBrand" parameterType="snmp">
+        insert into snmp_oid(brand,oid,way,chinese_des)
+        values(#{brand},#{oid},#{way},#{chinese_des})
+    </insert>
+	
+	<select id="getIdByOid" parameterType="Map" resultType="Integer">
+		select id from
+		snmp_oid
+		where oid=#{oid}
+	</select>
+	
+	<select id="getIdsByBrand" parameterType="Map" resultType="Integer">
+		select id from
+		serversip
+		where brand=#{brand}
+	</select>
+	
+	<select id="getByOid" parameterType="String" resultType="snmp">
+		select id from
+		snmp_oid
+		where oid=#{oid}
+	</select>
+	
+	<insert id="setIdOid" parameterType="Map">
+        insert into snmp_id_oid(iid,ooid)
+        values(#{iid},#{ooid})
+    </insert>
+	
+	<update id="updateSysIP" parameterType="Map">
+        update serversip
+        set name=#{name},hostname=#{hostname},username=#{username},password=#{password},bmc_key=#{bmcKey}
+        where id=#{id}
+    </update>
+    
+    
+    
+</mapper>

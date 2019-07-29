@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gydz.user.mapper.sensorMapper">
+
+	<select id="getInfobyParam" parameterType="Map" resultType="sensorrecord">
+		select * from
+		${tablename}
+		where 1=1 and record_type = 'FullSensorRecord'
+		<if test="(datemin != null  and datemin != '') and (datemax != null and datemax != '')">
+            and start_time between #{datemin} and #{datemax}
+        </if>
+		<if test="queryType != '全部' and queryType != null  and queryType != ''">
+		and sensor_type = #{queryType}
+		</if>
+		<if test="nameType != '全部' and nameType != null and nameType != ''">
+		and name = #{nameType}
+		</if>
+	</select>
+	
+	<select id="getcurrentInfobyParam" parameterType="Map" resultType="sensorrecord">
+		select * from 
+		${tablename}
+		where 1=1
+		<if test="queryType != '全部' and queryType != null and queryType != ''">
+		and sensor_type = #{queryType}
+		</if>
+		<if test="nameType != '全部' and nameType != null and nameType != ''">
+		and name = #{nameType}
+		</if>
+		<if test="entity_id != '全部' and entity_id != null and entity_id != ''">
+		and entity_id = #{entity_id}
+		</if>
+	</select>
+	
+	<select id="getServersip" statementType="STATEMENT" resultType="serversip">
+		select * from
+		serversip
+	</select>
+	
+	<select id="selectIsOnline" statementType="STATEMENT" resultType="serversip">
+		select * from
+		serversip 
+		where is_online=1
+	</select>
+	
+	<select id="getName" parameterType="Map" resultType="name">
+		select name from
+		${tablename}
+		where 1=1
+		and sensor_type = #{queryType}
+	</select>
+	
+	<select id="getEntityid" parameterType="Map" resultType="String">
+		select entity_id from
+		${tablename}
+	</select>
+	
+	<select id="getIPnamenum" parameterType="Map" resultType="sensorrecord">
+		select start_time,IP,name,current_num from
+		${tablename}
+	</select>
+	
+	<insert id="addServersip">
+        insert into serversip(name,hostname,username,password,bmc_key)
+        values("","","","","")
+    </insert>
+	
+	<update id="updateSysIP" parameterType="Map">
+        update serversip
+        set name=#{name},brand=#{brand},location=#{location},note=#{note},hostname=#{hostname},username=#{username},password=#{password},bmc_key=#{bmcKey},is_online=#{is_online}
+        where id=#{id}
+    </update>
+    
+    <update id="updateIsOnline" parameterType="Map">
+        update serversip
+        set is_online=0
+    </update>
+    
+    <delete id="delSysIP" parameterType="int">
+        delete from serversip 
+        where id=#{id}
+    </delete>
+    
+    <delete id="delIid" parameterType="int">
+        delete from snmp_id_oid 
+        where iid=#{id}
+    </delete>
+    
+</mapper>

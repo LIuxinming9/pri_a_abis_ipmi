@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gydz.user.mapper.snmpMapper">
+    
+   <select id="getTypeByParam" parameterType="Map" resultType="snmp">
+		select t.type from
+		snmp_oid o,snmp_type t,snmp_id_oid io,serversip i
+		where o.type=t.id and i.id=io.iid and o.id=io.ooid
+		<if test="IPType != '全部' and IPType != null and IPType != ''">
+		and i.hostname = #{IPType}
+		</if>
+	</select>
+	
+	<select id="getNameByParam" parameterType="Map" resultType="snmp">
+		select o.chinese_des name from
+		snmp_oid o,snmp_id_oid io,serversip i
+		where i.id=io.iid and o.id=io.ooid
+		<if test="IPType != '全部' and IPType != null and IPType != ''">
+		and i.hostname = #{IPType}
+		</if>
+	</select>
+	
+	<select id="getValueByParam" parameterType="Map" resultType="snmp">
+		select * from 
+		${tablename}
+		where 1=1
+		<if test="queryType != '全部' and queryType != null and queryType != ''">
+		and type = #{queryType}
+		</if>
+		<if test="nameType != '全部' and nameType != null and nameType != ''">
+		and name = #{nameType}
+		</if>
+	</select>
+	
+	<insert id="addName" parameterType="snmp">
+        insert into snmpvaluetem(start_time,hostname,name,value)
+        values(#{start_time},#{hostname},#{name},#{value})
+    </insert>
+    
+    <insert id="addAllName" parameterType="snmp">
+        insert into snmpvalueall(start_time,hostname,name,value)
+        values(#{start_time},#{hostname},#{name},#{value})
+    </insert>
+	
+	<select id="getName" resultType="snmp">
+		select * from 
+		snmpvaluetem
+	</select>
+	
+	<select id="getAllName" resultType="snmp">
+		select * from 
+		snmpvalueall
+	</select>
+	
+	<update id="updateName" parameterType="snmp">
+        update snmpvaluetem
+        set hostname=#{hostname},name=#{name},value=#{value}
+        where id=#{id}
+    </update>
+    
+    <update id="updateAllName" parameterType="snmp">
+        update snmpvalueall
+        set hostname=#{hostname},name=#{name},value=#{value}
+        where id=#{id}
+    </update>
+    
+     <delete id="delName" parameterType="int">
+        delete from snmpvaluetem 
+        where id=#{id}
+    </delete>
+    
+    <delete id="delAllName" parameterType="int">
+        delete from snmpvalueall 
+        where id=#{id}
+    </delete>
+    
+</mapper>

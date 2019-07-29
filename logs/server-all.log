@@ -1,0 +1,15 @@
+2019-06-21 14:42:35.194 INFO  [com.veraxsystems.vxipmi.common.PropertiesManager] Getting pingPeriod: 30000
+2019-06-21 14:42:35.196 INFO  [com.veraxsystems.vxipmi.common.PropertiesManager] Getting retries: 3
+2019-06-21 14:42:35.197 INFO  [com.veraxsystems.vxipmi.common.PropertiesManager] Getting retries: 3
+2019-06-21 14:42:35.197 INFO  [com.veraxsystems.vxipmi.common.PropertiesManager] Getting idleTime: 4000
+2019-06-21 14:42:35.206 INFO  [com.veraxsystems.vxipmi.common.PropertiesManager] Getting timeout: 10000
+2019-06-21 14:42:52.940 WARN  [com.veraxsystems.vxipmi.api.async.IpmiAsyncConnector] Failed to receive answer, cause:
+com.veraxsystems.vxipmi.connection.ConnectionException: Command timed out
+	at com.veraxsystems.vxipmi.connection.Connection.waitForResponse(Connection.java:329)
+	at com.veraxsystems.vxipmi.connection.Connection.startSession(Connection.java:480)
+	at com.veraxsystems.vxipmi.connection.ConnectionManager.startSession(ConnectionManager.java:346)
+	at com.veraxsystems.vxipmi.api.async.IpmiAsyncConnector.openSession(IpmiAsyncConnector.java:247)
+	at com.veraxsystems.vxipmi.api.sync.IpmiConnector.openSession(IpmiConnector.java:165)
+	at com.gydz.util.ipmiutil.startSession(ipmiutil.java:975)
+	at com.gydz.util.ipmiutil.getfullrecord(ipmiutil.java:343)
+	at com.gydz.util.ipmiutil.main(ipmiutil.java:120)

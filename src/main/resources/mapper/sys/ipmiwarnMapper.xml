@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gydz.user.mapper.ipmiwarnMapper">
+
+	<select id="getsensorwarnrefer" statementType="STATEMENT" resultType="sensorrecord">
+		select * from
+		warn_refer
+	</select>
+	
+	<select id="getsensorwarnreferbyid" parameterType="String" resultType="sensorrecord">
+		select * from
+		warn_refer
+		where 1=1
+		<if test="IPType != '全部' and IPType != null">
+		and IP = #{IPType}
+		</if>
+	</select>
+	
+	<select id="getsensorwarnreferbyparam" parameterType="Map" resultType="sensorrecord">
+		select * from
+		warn_refer
+		where 1=1
+		<if test="queryType != '全部' and queryType != null and queryType != ''">
+		and sensor_type = #{queryType}
+		</if>
+		<if test="IPType != '全部' and IPType != null and IPType != ''">
+		and IP = #{IPType}
+		</if>
+		<if test="nameType != '全部' and nameType != null and nameType != ''">
+		and name = #{nameType}
+		</if>
+	</select>
+</mapper>

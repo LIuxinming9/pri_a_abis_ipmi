@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gydz.user.mapper.OperationLogMapper">
+    
+    <select id="getAllOperLogs" resultType="OperationLog">
+        select * from u_log order by time desc
+    </select>
+    
+    <select id="getOperLogByKeyword" resultType="OperationLog" parameterType="Map">
+        select * from u_log
+        where 1=1
+        <if test="keyword != null and keyword != ''">
+            and (logdesc =#{keyword} or account =#{keyword})
+        </if>
+        <if test="(datemin != null  and datemin != '') and (datemax != null and datemax != '')">
+            and time between #{datemin} and #{datemax}
+        </if>
+        order by time desc
+    </select>
+    
+    <insert id="addOperLog" parameterType="OperationLog">
+        insert into u_log(uid,account,ip,logtype,logdesc)
+        values(#{uid},#{account},#{ip},#{logtype},#{logdesc})
+    </insert>
+    
+</mapper>

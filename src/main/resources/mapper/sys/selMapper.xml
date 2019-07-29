@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gydz.user.mapper.selMapper">
+
+	<select id="getsel_type" parameterType="Map" resultType="sel_type">
+		select id,sel_type from
+		${tablename}
+	</select>
+	
+	<select id="getsel_name" parameterType="Map" resultType="sel_name">
+		select id,sel_name from
+		${tablename}
+	</select>
+	
+	<select id="selectANum" statementType="STATEMENT" resultType="String">
+		select name from
+		a_num
+	</select>
+	
+	<insert id="addANum" parameterType="Map">
+        insert into a_num(name)
+        values(#{name})
+    </insert>
+	
+	<delete id="delANum" parameterType="Map">
+        delete from a_num 
+        where name=#{name}
+    </delete>
+	
+	<select id="getInfobyParam" parameterType="Map" resultType="selrecord">
+		select * from
+		${tablename}
+		where 1=1
+		<if test="(datemin != null  and datemin != '') and (datemax != null and datemax != '')">
+            and timestamp between #{datemin} and #{datemax}
+        </if>
+		<if test="queryType != '全部' and queryType != null and queryType != ''">
+		and sensorType = #{queryType}
+		</if>
+		<if test="IPType != '全部' and IPType != null and IPType != ''">
+		and IP = #{IPType}
+		</if>
+		<if test="nameType != '全部' and nameType != null and nameType != ''">
+		and event = #{nameType}
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gydz.user.mapper.sensorwarnsetMapper">
+
+	<select id="getsensorwarnsetbyparam" parameterType="Map"
+	 resultType="sensorrecord">
+		select * from
+		sensor_warn_set
+		where 1=1
+		<if test="queryType != '全部' and queryType != null and queryType != ''">
+		and sensor_type = #{queryType}
+		</if>
+		<if test="IPType != '全部' and IPType != null and IPType != ''">
+		and IP = #{IPType}
+		</if>
+		<if test="nameType != '全部' and nameType != null and nameType != ''">
+		and name = #{nameType}
+		</if>
+	</select>
+	
+	<select id="getIPname" 
+	 resultType="sensorrecord">
+		select IPname from
+		sensor_warn_set
+	</select>
+	
+	<delete id="delSysIP" parameterType="Map">
+        delete from sensor_warn_set 
+        where IP=#{IPType} 
+        and name = #{nameType}
+    </delete>
+    
+    <insert id="add" parameterType="sensorrecord">
+        insert into sensor_warn_set(IP,name,IPname,entity_id,sensor_type,
+        lower_non_recoverable_threshold,upper_non_recoverable_threshold,
+        upper_critical_threshold,lower_critical_threshold,
+        upper_non_critical_threshold,lower_non_critical_threshold)
+        values(#{IP},#{name},#{IPname},#{entity_id},#{sensor_type},
+        #{lower_non_recoverable_threshold},#{upper_non_recoverable_threshold},
+        #{upper_critical_threshold},#{lower_critical_threshold},
+        #{upper_non_critical_threshold},#{lower_non_critical_threshold})
+    </insert>
+    
+    <update id="update" parameterType="Map">
+        update sensor_warn_set 
+        set IPname=#{IPname},
+        sensor_type=#{sensor_type},
+        lower_non_recoverable_threshold=#{lower_non_recoverable_threshold},
+        upper_non_recoverable_threshold=#{upper_non_recoverable_threshold},
+        upper_critical_threshold=#{upper_critical_threshold},
+        lower_critical_threshold=#{lower_critical_threshold},
+        upper_non_critical_threshold=#{upper_non_critical_threshold},
+        lower_non_critical_threshold=#{lower_non_critical_threshold} 
+        where IP=#{IP}
+        and name=#{name}
+    </update>
+    
+</mapper>
